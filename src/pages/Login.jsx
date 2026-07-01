@@ -72,6 +72,14 @@ export default function Login() {
             Login
           </button>
         </form>
+        <div className="mt-6 pt-6 border-t border-gray-200">
+          <p className="text-sm text-gray-500 text-center">
+            Don't have an account?{' '}
+            <a href="/register" className="font-semibold text-emerald-600 hover:text-emerald-700 transition-colors">
+              Create one here
+            </a>
+          </p>
+        </div>
       </div>
       <div className="text-xs text-gray-400 mt-8 text-center lg:text-left">
         © 2026 CashFlowGateway. All rights reserved.
