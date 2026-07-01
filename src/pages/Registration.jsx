@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AuthLayout from '../layouts/AuthLayout';
+import AuthLayout from '../component/ui/layouts/AuthLayout';
 import Input from '../component/ui/Input';
 
 export default function Registration() {
