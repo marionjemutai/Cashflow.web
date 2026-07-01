@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
-import AuthLayout from '../layouts/AuthLayout';
+import { useNavigate } from 'react-router-dom';
+import AuthLayout from '../component/ui/layouts/AuthLayout';
 import Input from '../component/ui/Input';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({ email, password, rememberMe });
+  
+    navigate('/dashboard');
   };
 
   return (
