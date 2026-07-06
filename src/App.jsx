@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Registration from './pages/Registration';
 import Dashboard from './pages/Dashbord';
 import POS from './pages/Pos';
+import Inventory from './pages/Inventory';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Route path="/register" element={<Registration />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/pos" element={<POS />} />
+        <Route path="/inventory" element={<Inventory />} />
       </Routes>
     </BrowserRouter>
   );
