@@ -212,9 +212,6 @@ const mockProducts = [
           </div>
           
           <div className="flex items-center gap-3 ml-0 sm:ml-4">
-            <span className="bg-amber-50 text-amber-600 font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-md hidden sm:inline">
-              Offline 
-            </span>
             <div className="h-8 w-px bg-gray-100 hidden sm:block" />
             <div className="text-right hidden sm:block">
               <p className="text-xs font-bold text-slate-800">Marion</p>
