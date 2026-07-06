@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function OrderSummary({ cart, onClear }) {
   const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-  const tax = subtotal * 0.16; // 16% Tax matching reference Screen #3
+  const tax = subtotal * 0.16;
   const total = subtotal + tax;
 
   return (
