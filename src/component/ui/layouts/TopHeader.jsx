@@ -23,12 +23,7 @@ export default function TopHeader({ setSidebarOpen }) {
           <span className="absolute top-2 right-2 w-2 h-2 bg-emerald-500 rounded-full" />
           🔔
         </button>
-        <div className="h-8 w-px bg-gray-200" />
-        <img 
-          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" 
-          alt="Marion Avatar" 
-          className="w-9 h-9 rounded-xl object-cover ring-2 ring-gray-100"
-        />
+        
       </div>
     </header>
   );
