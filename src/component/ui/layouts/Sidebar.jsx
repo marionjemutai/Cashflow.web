@@ -34,7 +34,6 @@ export default function Sidebar({ isOpen, setIsOpen }) {
         `}
       >
         <div>
-          {/* Logo */}
           <div className="p-6 flex items-center justify-between border-b border-emerald-950/50">
             <div className="flex items-center gap-2.5">
               <div className="bg-emerald-600 text-white p-1.5 rounded-lg">
@@ -59,7 +58,6 @@ export default function Sidebar({ isOpen, setIsOpen }) {
             </button>
           </div>
 
-          {/* Menu */}
           <nav className="p-4 space-y-1">
             {menuItems.map((item, idx) => {
               const isActive = location.pathname === item.path;
@@ -86,7 +84,6 @@ export default function Sidebar({ isOpen, setIsOpen }) {
           </nav>
         </div>
 
-        {/* Logout */}
         <div className="p-4 border-t border-emerald-950/50">
           <button className="w-full flex items-center gap-3.5 px-4 py-3 text-sm font-medium text-gray-400 hover:text-red-400 hover:bg-red-950/20 rounded-xl transition-colors">
             <span>🚪</span>
