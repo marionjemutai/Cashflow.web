@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import Sidebar from '../component/ui/layouts/Sidebar';
+import TopHeader from '../component/ui/layouts/TopHeader';
 import InventoryFilters from '../component/ui/inventory/InventoryFilters';
 import InventoryTable from '../component/ui/inventory/InventoryTable';
 import InventoryCardList from '../component/ui/inventory/InventoryCardList';
 
 export default function Inventory() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   const mockInventory = [
@@ -14,6 +17,9 @@ export default function Inventory() {
     { name: 'Sugar 1kg', sku: 'P005', category: 'Groceries', price: 120.00, stock: 80, status: 'Active' },
     { name: 'Rice 2kg', sku: 'P006', category: 'Groceries', price: 240.00, stock: 18, status: 'Low Stock' },
     { name: 'Cooking Oil 1L', sku: 'P007', category: 'Groceries', price: 320.00, stock: 25, status: 'Active' },
+    { name: 'Ice Cream Vanilla 500ml', sku: 'P013', category: 'Frozen', price: 350.00, stock: 42, status: 'Active' },
+    { name: 'Chocolate Bar 100g', sku: 'P014', category: 'Confectionery', price: 120.00, stock: 65, status: 'Active' },
+    { name: 'Spaghetti 500g', sku: 'P015', category: 'Pasta', price: 95.00, stock: 30, status: 'Active' },
   ];
 
   const filteredItems = mockInventory.filter(item => 
@@ -22,37 +28,43 @@ export default function Inventory() {
   );
 
   return (
-    <div className="min-h-screen w-full bg-[#F8FAFC] p-4 sm:p-6 md:p-8 font-sans">
-      <div className="max-w-7xl mx-auto space-y-5">
-        
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-xl font-black text-slate-900 tracking-tight">Inventory</h1>
-            <p className="text-xs text-gray-400 mt-0.5 font-medium">Manage stock metrics, pricing structure, and items SKU logs.</p>
+    <div className="flex h-screen w-full bg-[#F8FAFC] overflow-hidden">
+      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+
+      <div className="flex-1 flex flex-col h-full overflow-y-auto">
+        <TopHeader setSidebarOpen={setSidebarOpen} />
+
+        <main className="p-4 sm:p-6 md:p-8 max-w-7xl mx-auto w-full space-y-5">
+          
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-xl font-black text-slate-900 tracking-tight">Inventory</h1>
+              <p className="text-xs text-gray-400 mt-0.5 font-medium">Manage stock metrics, pricing structure, and items SKU logs.</p>
+            </div>
+            <span className="text-xs font-bold text-slate-500 bg-white border border-gray-100 px-3 py-1.5 rounded-xl shadow-sm hidden sm:inline">
+              Total Products: <span className="text-emerald-600">{mockInventory.length}</span>
+            </span>
           </div>
-          <span className="text-xs font-bold text-slate-500 bg-white border border-gray-100 px-3 py-1.5 rounded-xl shadow-sm hidden sm:inline">
-            Total Products: <span className="text-emerald-600">{mockInventory.length}</span>
-          </span>
-        </div>
 
-        <InventoryFilters searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+          <InventoryFilters searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-        <InventoryTable items={filteredItems} />
-        <InventoryCardList items={filteredItems} />
+          <InventoryTable items={filteredItems} />
+          <InventoryCardList items={filteredItems} />
 
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2 text-xs font-medium text-gray-400">
-          <p>Showing {filteredItems.length} of {mockInventory.length} products</p>
-          <div className="flex items-center bg-white border border-gray-100 rounded-xl p-1 shadow-sm text-slate-700">
-            <button className="px-2.5 py-1.5 rounded-lg hover:bg-slate-50 transition-colors">◀</button>
-            <span className="px-3 py-1.5 text-emerald-600 font-bold bg-emerald-50 rounded-lg">1</span>
-            <button className="px-3 py-1.5 rounded-lg hover:bg-slate-50 transition-colors">2</button>
-            <button className="px-3 py-1.5 rounded-lg hover:bg-slate-50 transition-colors">3</button>
-            <span className="px-2 text-gray-300">...</span>
-            <button className="px-3 py-1.5 rounded-lg hover:bg-slate-50 transition-colors">27</button>
-            <button className="px-2.5 py-1.5 rounded-lg hover:bg-slate-50 transition-colors">▶</button>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2 text-xs font-medium text-gray-400">
+            <p>Showing {filteredItems.length} of {mockInventory.length} products</p>
+            <div className="flex items-center bg-white border border-gray-100 rounded-xl p-1 shadow-sm text-slate-700">
+              <button className="px-2.5 py-1.5 rounded-lg hover:bg-slate-50 transition-colors">◀</button>
+              <span className="px-3 py-1.5 text-emerald-600 font-bold bg-emerald-50 rounded-lg">1</span>
+              <button className="px-3 py-1.5 rounded-lg hover:bg-slate-50 transition-colors">2</button>
+              <button className="px-3 py-1.5 rounded-lg hover:bg-slate-50 transition-colors">3</button>
+              <span className="px-2 text-gray-300">...</span>
+              <button className="px-3 py-1.5 rounded-lg hover:bg-slate-50 transition-colors">27</button>
+              <button className="px-2.5 py-1.5 rounded-lg hover:bg-slate-50 transition-colors">▶</button>
+            </div>
           </div>
-        </div>
 
+        </main>
       </div>
     </div>
   );
