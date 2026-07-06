@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Registration from './pages/Registration';
 import Dashboard from './pages/Dashbord';
+import POS from './pages/Pos';
 
 export default function App() {
   return (
