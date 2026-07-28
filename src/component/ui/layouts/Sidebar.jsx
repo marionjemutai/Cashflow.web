@@ -7,9 +7,9 @@ export default function Sidebar({ isOpen, setIsOpen }) {
   const menuItems = [
     { icon: "📊", label: "Dashboard", path: "/dashboard" },
     { icon: "🛒", label: "POS", path: "/pos" },
-    { icon: "🧾", label: "Transactions", path: "/transactions" },
+    //{ icon: "🧾", label: "Transactions", path: "/transactions" },
     { icon: "📦", label: "Inventory", path: "/inventory" },
-    { icon: "📈", label: "Reports", path: "/reports" },
+   // { icon: "📈", label: "Reports", path: "/reports" },
     { icon: "🏪", label: "Stores", path: "/stores" },
     { icon: "📱", label: "Devices", path: "/devices" },
     { icon: "👥", label: "Users", path: "/users" },
