@@ -173,8 +173,6 @@ const mockProducts = [
   const handleRemoveItem = (id) => {
     setCart(prev => prev.filter(item => item.id !== id));
   };
-
-  // Calculate totals for receipt
   const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
   const tax = subtotal * 0.16;
   const total = subtotal + tax;
@@ -189,17 +187,9 @@ const mockProducts = [
   };
 
   const handlePrintAndComplete = () => {
-    // This function would typically:
-    // 1. Save the transaction to database
-    // 2. Update inventory
-    // 3. Clear the cart
-    // 4. Close the modal
-    
-    // For now, we'll just clear the cart and close the modal
     setCart([]);
     setShowReceiptModal(false);
     
-    // Show success message
     alert('Sale completed successfully! Receipt has been printed.');
   };
 
@@ -344,7 +334,6 @@ const mockProducts = [
         </div>
       </div>
 
-      {/* Receipt Modal */}
       <ReceiptModal
         isOpen={showReceiptModal}
         onClose={handleCloseReceiptModal}
