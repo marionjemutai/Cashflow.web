@@ -12,6 +12,7 @@ export const Stores = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingStore, setEditingStore] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const filteredStores = stores.filter((store) => {
@@ -30,6 +31,25 @@ export const Stores = () => {
     setStores((prev) => [newStore, ...prev]);
   };
 
+  const handleEditStore = (updatedStore) => {
+    setStores((prev) => prev.map((store) => (store.id === updatedStore.id ? updatedStore : store)));
+  };
+
+  const handleOpenAddModal = () => {
+    setEditingStore(null);
+    setIsModalOpen(true);
+  };
+
+  const handleOpenEditModal = (store) => {
+    setEditingStore(store);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setEditingStore(null);
+  };
+
   return (
     <div className="flex h-screen w-full bg-[#F8FAFC] overflow-hidden">
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
@@ -45,7 +65,7 @@ export const Stores = () => {
             </div>
 
             <button
-              onClick={() => setIsModalOpen(true)}
+              onClick={handleOpenAddModal}
               className="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs sm:text-sm px-4 py-2.5 rounded-lg transition-colors shadow-sm self-start sm:self-auto"
             >
               <Plus className="w-4 h-4" />
@@ -89,6 +109,7 @@ export const Stores = () => {
                   <div className="pt-2 flex justify-end gap-2 border-t border-gray-50">
                     <button
                       title="Edit Store"
+                      onClick={() => handleOpenEditModal(store)}
                       className="p-1.5 text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg border border-gray-200 transition-colors"
                     >
                       <Edit2 className="w-4 h-4" />
@@ -127,6 +148,7 @@ export const Stores = () => {
                       <td className="py-4 px-6 text-center whitespace-nowrap">
                         <button
                           title="Edit Store"
+                          onClick={() => handleOpenEditModal(store)}
                           className="p-1.5 text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors border border-transparent hover:border-emerald-100"
                         >
                           <Edit2 className="w-4 h-4" />
@@ -147,8 +169,10 @@ export const Stores = () => {
 
       <AddStoreModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={handleCloseModal}
         onAddStore={handleAddStore}
+        onEditStore={handleEditStore}
+        editingStore={editingStore}
       />
     </div>
   );

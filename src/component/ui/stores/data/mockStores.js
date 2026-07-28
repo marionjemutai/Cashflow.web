@@ -3,7 +3,7 @@ export const mockStores = [
     id: "STR-001",
     name: "Main Store",
     location: "Nairobi",
-    manager: "John Doe",
+    manager: "Herick Mwangi",
     status: "Active",
   },
   {

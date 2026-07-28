@@ -1,13 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { X, Store, MapPin, User } from 'lucide-react';
 
-export const AddStoreModal = ({ isOpen, onClose, onAddStore }) => {
+export const AddStoreModal = ({ isOpen, onClose, onAddStore, onEditStore, editingStore }) => {
   const [formData, setFormData] = useState({
     name: '',
     location: '',
     manager: '',
     status: 'Active',
   });
+
+  useEffect(() => {
+    if (editingStore) {
+      setFormData({
+        name: editingStore.name || '',
+        location: editingStore.location || '',
+        manager: editingStore.manager || '',
+        status: editingStore.status || 'Active',
+      });
+    } else {
+      setFormData({ name: '', location: '', manager: '', status: 'Active' });
+    }
+  }, [editingStore, isOpen]);
 
   if (!isOpen) return null;
 
@@ -16,18 +29,33 @@ export const AddStoreModal = ({ isOpen, onClose, onAddStore }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const resetForm = () => {
+    setFormData({ name: '', location: '', manager: '', status: 'Active' });
+  };
+
+  const handleClose = () => {
+    resetForm();
+    onClose();
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.location.trim() || !formData.manager.trim()) {
       return;
     }
 
-    onAddStore({
-      id: `STR-${Math.floor(100 + Math.random() * 900)}`,
+    const payload = {
+      id: editingStore ? editingStore.id : `STR-${Math.floor(100 + Math.random() * 900)}`,
       ...formData,
-    });
+    };
 
-    setFormData({ name: '', location: '', manager: '', status: 'Active' });
+    if (editingStore) {
+      onEditStore?.(payload);
+    } else {
+      onAddStore?.(payload);
+    }
+
+    resetForm();
     onClose();
   };
 
@@ -43,10 +71,12 @@ export const AddStoreModal = ({ isOpen, onClose, onAddStore }) => {
             <div className="p-2 bg-emerald-50 rounded-lg text-emerald-600">
               <Store className="w-5 h-5" />
             </div>
-            <h2 className="text-base sm:text-lg font-bold text-gray-900">Add New Store</h2>
+            <h2 className="text-base sm:text-lg font-bold text-gray-900">
+              {editingStore ? 'Edit Store' : 'Add New Store'}
+            </h2>
           </div>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="p-1 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
           >
             <X className="w-5 h-5" />
@@ -126,7 +156,7 @@ export const AddStoreModal = ({ isOpen, onClose, onAddStore }) => {
           <div className="pt-4 flex items-center justify-end gap-3">
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleClose}
               className="px-4 py-2 text-xs sm:text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
             >
               Cancel
@@ -135,7 +165,7 @@ export const AddStoreModal = ({ isOpen, onClose, onAddStore }) => {
               type="submit"
               className="px-4 py-2 text-xs sm:text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-colors shadow-sm"
             >
-              Save Store
+              {editingStore ? 'Save Changes' : 'Save Store'}
             </button>
           </div>
         </form>
