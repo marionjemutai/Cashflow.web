@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function InventoryTable({ items }) {
+export default function InventoryTable({ items, onEdit, onDelete }) {
   return (
     <div className="hidden md:block bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
       <div className="overflow-x-auto">
@@ -32,8 +32,20 @@ export default function InventoryTable({ items }) {
                   </span>
                 </td>
                 <td className="py-4 px-6 text-right space-x-2">
-                  <button className="text-gray-400 hover:text-emerald-600 transition-colors text-xs">✏️</button>
-                  <button className="text-gray-400 hover:text-rose-500 transition-colors text-xs">🗑️</button>
+                  <button 
+                    onClick={() => onEdit(item)}
+                    className="text-gray-400 hover:text-emerald-600 transition-colors text-xs p-1"
+                    title="Edit product"
+                  >
+                    ✏️
+                  </button>
+                  <button 
+                    onClick={() => onDelete(item.id)}
+                    className="text-gray-400 hover:text-rose-500 transition-colors text-xs p-1"
+                    title="Delete product"
+                  >
+                    🗑️
+                  </button>
                 </td>
               </tr>
             ))}

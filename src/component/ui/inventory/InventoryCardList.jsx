@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function InventoryCardList({ items }) {
+export default function InventoryCardList({ items, onEdit, onDelete }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
       {items.map((item, idx) => (
@@ -29,10 +29,16 @@ export default function InventoryCardList({ items }) {
           </div>
 
           <div className="flex gap-2 border-t border-gray-50 pt-2.5 mt-1">
-            <button className="flex-1 bg-slate-50 hover:bg-slate-100 text-slate-600 text-xs font-semibold py-2 rounded-xl transition-colors">
+            <button 
+              onClick={() => onEdit(item)}
+              className="flex-1 bg-slate-50 hover:bg-slate-100 text-slate-600 text-xs font-semibold py-2 rounded-xl transition-colors"
+            >
               Edit
             </button>
-            <button className="bg-slate-50 hover:bg-rose-50 text-gray-400 hover:text-rose-500 p-2 rounded-xl transition-colors">
+            <button 
+              onClick={() => onDelete(item.id)}
+              className="bg-slate-50 hover:bg-rose-50 text-gray-400 hover:text-rose-500 p-2 rounded-xl transition-colors"
+            >
               🗑️
             </button>
           </div>
