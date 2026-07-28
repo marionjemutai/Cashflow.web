@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function OrderSummary({ cart, onClear }) {
+export default function OrderSummary({ cart, onClear, onCompleteSale }) {
   const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
   const tax = subtotal * 0.16;
   const total = subtotal + tax;
@@ -25,6 +25,7 @@ export default function OrderSummary({ cart, onClear }) {
 
       <button 
         disabled={cart.length === 0}
+        onClick={onCompleteSale}
         className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-200 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-xl shadow-lg shadow-emerald-600/10 active:scale-[0.99] transition-all text-sm"
       >
         Complete Sale

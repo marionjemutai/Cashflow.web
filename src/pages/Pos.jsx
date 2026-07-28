@@ -4,12 +4,14 @@ import TopHeader from '../component/ui/layouts/TopHeader';
 import ProductCard from '../component/ui/pos/ProductCard';
 import CartItem from '../component/ui/pos/CartItem';
 import OrderSummary from '../component/ui/pos/OrderSummary';
+import ReceiptModal from '../component/ui/pos/ReceiptModal';
 
 export default function POS() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('products'); 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [showReceiptModal, setShowReceiptModal] = useState(false);
   const [cart, setCart] = useState([
     { id: 1, name: 'Coca Cola 500ml', price: 60.00, quantity: 2, image: 'https://www.donnybrookfair.ie/cdn/shop/files/54491472Coca-Cola500mlDonnybrookFairCatering_bc7cdf4a-510a-44ee-a2e1-3207df7ee53b_650x.jpg?v=1764759457' },
     { id: 3, name: 'Bread 400g', price: 80.00, quantity: 1, image: 'https://cdn.mafrservices.com/pim-content/KEN/media/product/219686/219686_main.jpg' },
@@ -172,6 +174,35 @@ const mockProducts = [
     setCart(prev => prev.filter(item => item.id !== id));
   };
 
+  // Calculate totals for receipt
+  const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+  const tax = subtotal * 0.16;
+  const total = subtotal + tax;
+
+  const handleCompleteSale = () => {
+    if (cart.length === 0) return;
+    setShowReceiptModal(true);
+  };
+
+  const handleCloseReceiptModal = () => {
+    setShowReceiptModal(false);
+  };
+
+  const handlePrintAndComplete = () => {
+    // This function would typically:
+    // 1. Save the transaction to database
+    // 2. Update inventory
+    // 3. Clear the cart
+    // 4. Close the modal
+    
+    // For now, we'll just clear the cart and close the modal
+    setCart([]);
+    setShowReceiptModal(false);
+    
+    // Show success message
+    alert('Sale completed successfully! Receipt has been printed.');
+  };
+
   const totalItemsCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
@@ -303,11 +334,25 @@ const mockProducts = [
               )}
             </div>
 
-            <OrderSummary cart={cart} />
+            <OrderSummary 
+              cart={cart} 
+              onCompleteSale={handleCompleteSale}
+              onClear={() => setCart([])}
+            />
           </aside>
 
         </div>
       </div>
+
+      {/* Receipt Modal */}
+      <ReceiptModal
+        isOpen={showReceiptModal}
+        onClose={handleCloseReceiptModal}
+        cart={cart}
+        subtotal={subtotal}
+        tax={tax}
+        total={total}
+      />
     </div>
   );
 }
