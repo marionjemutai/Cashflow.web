@@ -4,9 +4,9 @@ export default function ProductCard({ product, onAddToCart }) {
   return (
     <div 
       onClick={() => onAddToCart(product)}
-      className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-emerald-200 transition-all cursor-pointer flex flex-col justify-between group"
+      className="bg-white p-3 rounded-2xl border border-slate-200/80 shadow-[0_2px_10px_rgba(15,23,42,0.03)] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-emerald-900/5 hover:border-emerald-300 transition-all cursor-pointer flex flex-col justify-between group"
     >
-      <div className="bg-slate-50 rounded-xl p-2 flex items-center justify-center mb-3 h-40 relative overflow-hidden">
+      <div className="bg-[#f1f6f4] rounded-xl p-2 flex items-center justify-center mb-3 h-28 relative overflow-hidden">
         {product.image ? (
           typeof product.image === 'string' && product.image.startsWith('http') ? (
             <img 
@@ -24,8 +24,8 @@ export default function ProductCard({ product, onAddToCart }) {
       <div>
         <h4 className="text-xs sm:text-sm font-bold text-slate-800 line-clamp-1">{product.name}</h4>
         <div className="flex items-center justify-between mt-1">
-          <p className="text-xs font-semibold text-gray-400">{product.unit}</p>
-          <p className="text-xs sm:text-sm font-extrabold text-emerald-600">KSh {product.price.toFixed(2)}</p>
+          <p className="text-[11px] font-semibold text-slate-400">{product.unit}</p>
+          <p className="text-xs sm:text-sm font-black text-emerald-600">KSh {product.price.toFixed(2)}</p>
         </div>
       </div>
     </div>
