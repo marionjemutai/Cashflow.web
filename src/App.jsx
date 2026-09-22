@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashbord';
 import POS from './pages/Pos';
 import Inventory from './pages/Inventory';
 import Stores from './pages/Stores';
+import DevicesPage from './pages/DevicesPage';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/pos" element={<POS />} />
         <Route path="/inventory" element={<Inventory />} />
         <Route path="/stores" element={<Stores />} />
+        <Route path="/devices" element={<DevicesPage />} />
       </Routes>
     </BrowserRouter>
   );
