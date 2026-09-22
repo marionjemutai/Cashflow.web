@@ -10,11 +10,11 @@ export const StoreFilters = ({
 }) => {
   return (
     <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3">
-      {/* Search & Status Filter */}
+      {/* Search & Status  */}
       <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto flex-1">
         {/* Search Input */}
         <div className="relative w-full sm:w-72">
-          <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 textFilter-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchTerm}
