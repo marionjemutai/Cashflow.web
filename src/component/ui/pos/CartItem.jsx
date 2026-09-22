@@ -2,9 +2,9 @@ import React from 'react';
 
 export default function CartItem({ item, onUpdateQty, onRemove }) {
   return (
-    <div className="flex items-center justify-between gap-3 py-3 border-b border-gray-50">
+    <div className="flex items-center justify-between gap-3 py-3.5 border-b border-slate-100 last:border-0">
       <div className="flex items-center gap-2.5 min-w-0">
-        <div className="w-16 h-16 bg-slate-50 p-1 rounded-lg shrink-0 flex items-center justify-center">
+        <div className="w-14 h-14 bg-[#f1f6f4] p-1 rounded-xl shrink-0 flex items-center justify-center ring-1 ring-slate-100">
           {item.image ? (
             typeof item.image === 'string' && item.image.startsWith('http') ? (
               <img 
@@ -29,7 +29,7 @@ export default function CartItem({ item, onUpdateQty, onRemove }) {
         <div className="flex items-center bg-slate-100 rounded-lg p-1">
           <button 
             onClick={() => onUpdateQty(item.id, -1)}
-            className="w-6 h-6 flex items-center justify-center font-bold text-slate-600 hover:bg-white rounded transition-colors text-xs"
+            className="w-6 h-6 flex items-center justify-center font-bold text-slate-600 hover:bg-white rounded-md transition-colors text-xs"
           >
             -
           </button>
@@ -44,7 +44,7 @@ export default function CartItem({ item, onUpdateQty, onRemove }) {
         
         <button 
           onClick={() => onRemove(item.id)}
-          className="text-gray-300 hover:text-rose-500 p-1.5 transition-colors text-xs"
+          className="text-slate-300 hover:text-rose-500 p-1.5 transition-colors text-xs"
         >
           ✕
         </button>
