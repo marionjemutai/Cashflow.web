@@ -196,20 +196,24 @@ const mockProducts = [
   const totalItemsCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
-    <div className="flex h-screen w-full bg-[#F8FAFC] overflow-hidden">
+    <div className="flex h-screen w-full bg-[#f4f7f6] overflow-hidden text-slate-900">
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
       <div className="flex-1 flex flex-col h-full overflow-y-auto">
         <TopHeader setSidebarOpen={setSidebarOpen} />
 
-        <div className="bg-white border-b border-gray-100 px-4 sm:px-6 py-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 shrink-0">
+        <div className="bg-white border-b border-slate-200/80 px-4 sm:px-7 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shrink-0">
           <div className="flex items-center gap-4 flex-1 max-w-xl w-full">
-            <span className="text-md font-bold text-slate-800 tracking-tight hidden md:inline">POS Products</span>
+            <div className="hidden md:block min-w-fit">
+              <p className="text-[10px] uppercase tracking-[0.18em] font-bold text-emerald-600">Sales terminal</p>
+              <span className="text-lg font-black text-slate-900 tracking-tight">POS Products</span>
+            </div>
             <div className="relative w-full">
-              <input 
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm">⌕</span>
+            <input 
                 type="text"
                 placeholder="Search products by name, barcode or SKU..."
-                className="w-full bg-slate-50 border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition-all"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-sm outline-none focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 transition-all"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -224,7 +228,7 @@ const mockProducts = [
                 className={`px-3 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap transition-colors ${
                   selectedCategory === category
                     ? 'bg-emerald-600 text-white shadow-sm'
-                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    : 'bg-slate-50 border border-slate-200 text-slate-600 hover:border-emerald-300 hover:text-emerald-700'
                 }`}
               >
                 {category === 'all' ? 'All Products' : category.charAt(0).toUpperCase() + category.slice(1)}
@@ -241,7 +245,7 @@ const mockProducts = [
           </div>
         </div>
 
-        <div className="bg-white border-b border-gray-100 px-4 sm:px-6 py-2 text-xs text-gray-500 flex items-center justify-between">
+        <div className="bg-white border-b border-slate-200/80 px-4 sm:px-7 py-2.5 text-xs text-gray-500 flex items-center justify-between">
           <div>
             Showing <span className="font-semibold text-slate-700">{filteredProducts.length}</span> of{' '}
             <span className="font-semibold text-slate-700">{mockProducts.length}</span> products
@@ -252,7 +256,7 @@ const mockProducts = [
             )}
           </div>
           <div className="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">
-            {filteredProducts.length} items
+            {filteredProducts.length} available
           </div>
         </div>
 
@@ -271,9 +275,9 @@ const mockProducts = [
           </button>
         </div>
 
-        <div className="flex-1 flex overflow-hidden">
+        <div className="flex-1 flex overflow-hidden bg-[#f4f7f6]">
           
-          <main className={`flex-1 overflow-y-auto p-4 sm:p-6 ${activeTab === 'products' ? 'block' : 'hidden lg:block'}`}>
+          <main className={`flex-1 overflow-y-auto p-4 sm:p-6 lg:p-7 ${activeTab === 'products' ? 'block' : 'hidden lg:block'}`}>
             {filteredProducts.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center text-center p-8">
                 <span className="text-4xl mb-3">🔍</span>
@@ -281,7 +285,15 @@ const mockProducts = [
                 <p className="text-xs text-gray-400 mt-1">Try a different search or category</p>
               </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+              <>
+              <div className="mb-5 flex items-end justify-between">
+                <div>
+                  <h2 className="text-xl font-black tracking-tight text-slate-900">Browse products</h2>
+                  <p className="mt-1 text-xs font-medium text-slate-500">Tap a product to add it to the current order.</p>
+                </div>
+                <span className="hidden sm:block rounded-full bg-white px-3 py-1.5 text-[11px] font-bold text-slate-500 shadow-sm ring-1 ring-slate-200/70">Live inventory</span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 xl:grid-rows-5 gap-4">
                 {filteredProducts.map(product => (
                   <ProductCard 
                     key={product.id}
@@ -290,13 +302,14 @@ const mockProducts = [
                   />
                 ))}
               </div>
+              </>
             )}
           </main>
 
-          <aside className={`w-full lg:w-[380px] xl:w-[420px] bg-white border-l border-gray-100 flex flex-col p-4 sm:p-5 h-full ${activeTab === 'cart' ? 'block' : 'hidden lg:flex'}`}>
-            <div className="flex items-center justify-between pb-3 border-b border-gray-100 shrink-0">
-              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                Cart <span className="bg-slate-100 text-slate-700 text-xs px-2 py-0.5 rounded-full">{totalItemsCount}</span>
+          <aside className={`w-full lg:w-[380px] xl:w-[420px] bg-white border-l border-slate-200/80 flex flex-col p-4 sm:p-6 h-full ${activeTab === 'cart' ? 'block' : 'hidden lg:flex'}`}>
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100 shrink-0">
+              <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
+                Current order <span className="bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5 rounded-full">{totalItemsCount}</span>
               </h3>
               <button 
                 onClick={() => setCart([])}
