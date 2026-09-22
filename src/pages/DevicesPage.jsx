@@ -118,13 +118,11 @@ export default function DevicesPage() {
           onToggleLink={toggleLinkDevice}
         />
 
-        {/* Footer */}
         <div className="p-4 bg-slate-50 border-t border-slate-100 text-sm text-slate-700 font-semibold">
           Total Devices: {totalCount}
         </div>
       </div>
 
-      {/* Register Modal */}
       <RegisterDeviceModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
